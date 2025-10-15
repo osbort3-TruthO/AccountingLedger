@@ -1,6 +1,8 @@
 package com.pluralsight;
 
 import java.util.Scanner;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 
 public class AccountingLedger {
 
@@ -21,7 +23,7 @@ public class AccountingLedger {
 
             switch (choice) {
                 case "D":
-                    System.out.println("Add Deposit (coming soon)");
+                    addDeposit(scanner);  // Now calls the real method
                     break;
 
                 case "P":
@@ -29,12 +31,12 @@ public class AccountingLedger {
                     break;
 
                 case "L":
-                    showLedgerMenu(scanner);  //Correct method call
+                    showLedgerMenu(scanner);  // Correct call
                     break;
 
                 case "X":
                     System.out.println("Exiting program...");
-                    running = false;  //Ends the loop
+                    running = false;  // Ends the loop
                     break;
 
                 default:
@@ -45,7 +47,46 @@ public class AccountingLedger {
         scanner.close();
     }
 
-    //LEDGER MENU
+    // ADD DEPOSIT METHOD
+    public static void addDeposit(Scanner scanner) {
+        System.out.print("Enter description: ");
+        String description = scanner.nextLine();
+
+        System.out.print("Enter vendor: ");
+        String vendor = scanner.nextLine();
+
+        System.out.print("Enter amount: ");
+        double amount = Double.parseDouble(scanner.nextLine());
+
+        //  Ensure deposit is positive
+        if (amount < 0) {
+            amount = amount * -1;
+        }
+
+        //  Get the current date and time
+        String date = java.time.LocalDate.now().toString();
+        String time = java.time.LocalTime.now().toString();
+
+        // Create the Transaction object
+        Transaction transaction = new Transaction(date, time, description, vendor, amount);
+
+        // ✅ Write to CSV
+        try {
+            FileWriter fileWriter = new FileWriter("transactions.csv", true);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+
+            bufferedWriter.write(transaction.toCsvString());
+            bufferedWriter.newLine();
+            bufferedWriter.close();
+
+            System.out.println("Deposit added successfully!");
+
+        } catch (Exception e) {
+            System.out.println("Something went wrong while saving the deposit.");
+        }
+    }
+
+    // ✅ LEDGER MENU
     public static void showLedgerMenu(Scanner scanner) {
         boolean inLedger = true;
 
@@ -78,7 +119,7 @@ public class AccountingLedger {
                     break;
 
                 case "H":
-                    inLedger = false;  // Goes back to Home
+                    inLedger = false;  // ✅ Goes back to Home
                     break;
 
                 default:

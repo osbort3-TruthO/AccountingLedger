@@ -55,4 +55,9 @@ public class Transaction {
     public void setAmount(double amount) {
         this.amount = amount;
     }
+
+    // ✅ Method to format data for CSV
+    public String toCsvString() {
+        return date + "|" + time + "|" + description + "|" + vendor + "|" + amount;
+    }
 }
