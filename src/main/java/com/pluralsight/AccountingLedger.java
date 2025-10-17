@@ -253,6 +253,9 @@ public class AccountingLedger {
         try (BufferedReader br = new BufferedReader(new FileReader("transactions.csv"))) {
             String line;
 
+           // Skip the header
+            br.readLine();
+
             // Read each line from file
             while ((line = br.readLine()) != null) {
                 // Split CSV line into parts

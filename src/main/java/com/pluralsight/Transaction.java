@@ -1,13 +1,14 @@
 package com.pluralsight;
 
+// Class to store transaction data
 public class Transaction {
-    private String date;
-    private String time;
-    private String description;
-    private String vendor;
-    private double amount;
+    private String date;        // Transaction date
+    private String time;        // Transaction time
+    private String description; // Description of transaction
+    private String vendor;      // Vendor or source
+    private double amount;      // Amount (positive = deposit, negative = payment)
 
-    // Constructor
+    // Constructor to create a new transaction
     public Transaction(String date, String time, String description, String vendor, double amount) {
         this.date = date;
         this.time = time;
@@ -16,22 +17,23 @@ public class Transaction {
         this.amount = amount;
     }
 
-    // Getters
-    public String getDate() { return date; }
-    public String getTime() { return time; }
-    public String getDescription() { return description; }
-    public String getVendor() { return vendor; }
+    // Getter for amount
     public double getAmount() { return amount; }
 
-    // Convert transaction to a CSV string
+    // Getter for vendor
+    public String getVendor() { return vendor; }
+
+    // Convert transaction to a CSV string (for saving)
     public String toCsvString() {
-        // Using | as separator to match your readTransactions() method
         return date + "|" + time + "|" + description + "|" + vendor + "|" + amount;
     }
 
-    // Optional: make printing transactions nicer
+    // Print transaction nicely
     @Override
     public String toString() {
         return date + " " + time + " | " + description + " | " + vendor + " | " + amount;
     }
+
+    // Getter for date (needed for reports)
+    public String getDate() { return date; }
 }
