@@ -55,4 +55,4 @@ This project helps practice Java basics like **classes, objects, loops, conditio
 
 ## Author
 
-**Your Name** – beginner Java developer learning programming fundamentals.
+Truth Osborne – beginner Java developer learning programming fundamentals.
